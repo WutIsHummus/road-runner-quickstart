@@ -39,7 +39,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
-
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 /*
  * This OpMode illustrates how to use the DFRobot HuskyLens.
  *
@@ -61,17 +67,22 @@ public class SensorHuskyLens extends LinearOpMode {
     private final int READ_PERIOD = 1;
 
     private HuskyLens huskyLens;
-    final double FOCAL_LENGTH = 3.73;
+    final double FOCAL_LENGTH = 3.66;
     final int FOV = 65;
-    final double REAL_OBJECT_WIDTH = 82.55;
+    final double REAL_OBJECT_WIDTH = 80.55;
     final double CAM_HEIGHT = 11.0236;
-    final int CAM_ANGLE = 50;
+    final int CAM_ANGLE = 45;
+    double angle;
+    double distance;
 
 
     @Override
     public void runOpMode()
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
+
+        Pose2d beginPose = new Pose2d(-35, 62.5, Math.toRadians(-90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
 
         /*
          * This sample rate limits the reads solely to allow a user time to observe
@@ -128,16 +139,18 @@ public class SensorHuskyLens extends LinearOpMode {
                 continue;
             }
             rateLimit.reset();
+            if (gamepad1.a){
 
+            }
             HuskyLens.Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             for (HuskyLens.Block block : blocks) {
 
-                double distance = distanceFinder(block.width);
-                double angle = calculateHorizontalRotationAngle(block.x, 320);
+                double distance = Math.abs(distanceFinder(block.width));
+                angle = calculateHorizontalRotationAngle(block.x, 320);
 
                 telemetry.addData("Position", block.x);
-                telemetry.addData("Distance", distance);
+                telemetry.addData("Distance", distance * Math.sin(Math.toRadians(45)));
                 telemetry.addData("Angle", angle);
 
             }
@@ -151,7 +164,7 @@ public class SensorHuskyLens extends LinearOpMode {
     }
 
     public double calculateHorizontalRotationAngle(int objectPosX, int imageWidth) {
-        int imageCenterX = 250;
+        int imageCenterX = 275;
         double offsetFromCenter = objectPosX - imageCenterX;
         double angle = (offsetFromCenter / (double)imageWidth) * FOV;
         return angle;

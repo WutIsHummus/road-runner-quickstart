@@ -16,49 +16,7 @@ public class MyClass {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-35, 62.5,Math.toRadians(-90)))
-                .lineToY(33)
-                //.afterDisp(0, liftZero)
-                //.stopAndAdd(dropPurple)
-                .splineToLinearHeading(new Pose2d(-41, 45, Math.toRadians(-90)), Math.toRadians(180))
-                .splineToSplineHeading(new Pose2d(-57.5, 36, Math.toRadians(-180)), Math.toRadians(-120))
-                /*.afterDisp(4, new SequentialAction(
-                        box.moveTo(0.15),
-                        gate.moveTo(0.6)
-                        ))
-                .afterDisp(8, new SequentialAction(
-                        midBar.moveToTarget(0, 0.4),
-                        box.moveTo(0)
-                ))
-                 */
-                .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-35, 13), Math.toRadians(0))
-                .lineToX(22)
-                .splineTo(new Vector2d(45, 35), Math.toRadians(0))
-                .lineToX(50, new TranslationalVelConstraint(10))
-                .setTangent(Math.toRadians(-180))
-                .splineToConstantHeading(new Vector2d(22, 13), Math.toRadians(-180))
-                .lineToX(-30)
-                .splineTo(new Vector2d(-57.5, 12), Math.toRadians(-180))
-                .setTangent(Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(-35, 13), Math.toRadians(0))
-                .lineToX(22)
-                .splineTo(new Vector2d(45, 35), Math.toRadians(0))
-                .lineToX(50, new TranslationalVelConstraint(10))
-                .setTangent(Math.toRadians(-180))
-                .splineToConstantHeading(new Vector2d(22, 13), Math.toRadians(-180))
-                .lineToX(-30)
-                .splineTo(new Vector2d(-57.5, 12), Math.toRadians(-180))
-                .lineToX(22)
-                .splineTo(new Vector2d(45, 35), Math.toRadians(0))
-                .lineToX(50, new TranslationalVelConstraint(10))
-                .setTangent(Math.toRadians(-180))
-                .splineToConstantHeading(new Vector2d(22, 13), Math.toRadians(-180))
-                .lineToX(-30)
-                .splineTo(new Vector2d(-57.5, 12), Math.toRadians(-180))
-                .lineToX(22)
-                .splineTo(new Vector2d(45, 35), Math.toRadians(0))
-                .lineToX(50, new TranslationalVelConstraint(10))
-
+                .splineTo(new Vector2d(-31, 41), Math.toRadians(-90))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_OFFICIAL)
